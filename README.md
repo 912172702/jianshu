@@ -37,4 +37,32 @@ export default App;
 
 这样就可以将css文件统一放到js文件中管理，很方便
 
+```jsx
+import styled from 'styled-components';
+
+export const HeaderWrapper = styled.div` 
+    height: 56px;
+    background: red;
+`
+```
+这里定义了一个HeaderWrapper组件，他是一个样式组件，styled.div声明它本身是一个div,只要在其他组件中调用就可以了。如下
+
+```jsx
+import React, { Component } from 'react';
+import { HeaderWrapper } from './style'
+export default class Header extends Component {
+  render() {
+    return (
+      <HeaderWrapper>header</HeaderWrapper>
+    )
+  }
+}
+```
+
 ### Header部分的编写
+
+### 使用iconfont.cn查找图标
+
+### 利用react-redux管理数据
+
+### combineReducers分散reducer
