@@ -39,12 +39,12 @@ export default App;
 
 ```jsx
 import styled from 'styled-components';
-
-export const HeaderWrapper = styled.div` 
+export const HeaderWrapper = styled.div`  
     height: 56px;
     background: red;
 `
 ```
+
 这里定义了一个HeaderWrapper组件，他是一个样式组件，styled.div声明它本身是一个div,只要在其他组件中调用就可以了。如下
 
 ```jsx
@@ -66,3 +66,7 @@ export default class Header extends Component {
 ### 利用react-redux管理数据
 
 ### combineReducers分散reducer
+
+### immutable.js 不可被改变的对象，保证state不被改变
+
+### redux-immutable 让总的state也变成一个immutable对象

@@ -1,61 +1,99 @@
-import React from 'react';
-import { SearchWrapper, Button, Addition, HeaderWrapper, Logo, Nav, NavItem, NavSearch } from './style';
+import React, { Component } from 'react';
+import { SearchInfoItem, SearchInfoSwitch, SearchInfoTitle, SearchInfo, SearchWrapper, Button, Addition, HeaderWrapper, Logo, Nav, NavItem, NavSearch } from './style';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { inputBlurAction, inputFocusAction } from './store/actionCreator';
-const Header = (props) => {
-  const { focused, handleInputFocus, handleInputBlur } = props;
-  return (
-    <HeaderWrapper>
-      <Logo href='/' />
-      <Nav>
-        <NavItem className='left active'>首页</NavItem>
-        <NavItem className='left'>下载APP</NavItem>
-        <NavItem className='right'> 登陆</NavItem>
-        <NavItem className='right'>
-          <i className='iconfont'>&#xe636;</i>
-        </NavItem>
-        <SearchWrapper>
-          <CSSTransition
-            in={focused}
-            timeout={200}
-            classNames='slide'
-          >
-            <NavSearch
-              className={focused ? 'focused' : ''}
-              onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
-            >
-            </NavSearch>
-          </CSSTransition>
-          <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe6cf;</i>
-        </SearchWrapper>
-      </Nav>
-      <Addition>
-        <Button className='write-btn'>
-          <i className='iconfont'>&#xe61d;</i>写文章
-          </Button>
-        <Button className='sign-up'>注册</Button>
-      </Addition>
-    </HeaderWrapper>
-  )
-};
+import * as actionCreator from './store/actionCreator';
+class Header extends Component {
 
+  getListItem = () => {
+    const { list, page } = this.props;
+    const pageList = [];
+    const newList = list.toJS();
+    for (let i = (page - 1) * 10; i < page * 10 && i < newList.length; i++) {
+      pageList.push(<SearchInfoItem key={i}>{newList[i]}</SearchInfoItem>);
+    }
+    return pageList;
+  }
+
+  render() {
+    const { handleSwitchInfo, handleMouseOut, handleMouseIn, mouseIn, focused, handleInputFocus, handleInputBlur } = this.props;
+    return (
+      <HeaderWrapper>
+        <Logo href='/' />
+        <Nav>
+          <NavItem className='left active'>首页</NavItem>
+          <NavItem className='left'>下载APP</NavItem>
+          <NavItem className='right'> 登陆</NavItem>
+          <NavItem className='right'>
+            <i className='iconfont'>&#xe636;</i>
+          </NavItem>
+          <SearchWrapper>
+            <CSSTransition
+              in={focused}
+              timeout={200}
+              classNames='slide'
+            >
+              <NavSearch
+                className={focused ? 'focused' : ''}
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
+              >
+              </NavSearch>
+            </CSSTransition>
+            <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe6cf;</i>
+            <SearchInfo onMouseLeave={handleMouseOut} onMouseEnter={handleMouseIn} style={{ display: (focused || mouseIn) ? 'block' : 'none' }}>
+              <SearchInfoTitle>
+                热门搜索
+                <SearchInfoSwitch onClick={handleSwitchInfo}>
+                  换一批
+                </SearchInfoSwitch>
+              </SearchInfoTitle>
+              <div>
+                {this.getListItem()}
+              </div>
+            </SearchInfo>
+          </SearchWrapper>
+        </Nav>
+        <Addition>
+          <Button className='write-btn'>
+            <i className='iconfont'>&#xe61d;</i>写文章
+          </Button>
+          <Button className='sign-up'>注册</Button>
+        </Addition>
+      </HeaderWrapper>
+    )
+  };
+}
 const mapStateToProps = (state) => {
   return {
-    focused: state.header.focused
+    //immutable，必须通过get方法拿到值，否则无效
+    focused: state.get('header').get('focused'),
+    list: state.get('header').get('list'),
+    page: state.get('header').get('page'),
+    totalPage: state.get('header').get('totalPage'),
+    mouseIn: state.get('header').get('mouseIn')
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputFocus: () => {
-      const action = inputFocusAction();
-      dispatch(action);
+      //const action = inputFocusAction();
+      dispatch(actionCreator.inputFocusAction());
+      dispatch(actionCreator.getListAction());
     },
     handleInputBlur: () => {
-      const action = inputBlurAction();
-      dispatch(action);
+      //const action = inputBlurAction();
+      dispatch(actionCreator.inputBlurAction());
+    },
+    handleMouseIn: () => {
+      dispatch(actionCreator.mouseInAction())
+    },
+    handleMouseOut: () => {
+      dispatch(actionCreator.mouseOutAction());
+    },
+    handleSwitchInfo: () => {
+      dispatch(actionCreator.switchInfoAction());
     }
   }
 }
