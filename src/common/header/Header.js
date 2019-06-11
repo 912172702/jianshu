@@ -40,12 +40,12 @@ class Header extends Component {
               >
               </NavSearch>
             </CSSTransition>
-            <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe6cf;</i>
+            <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe6cf;</i>
             <SearchInfo onMouseLeave={handleMouseOut} onMouseEnter={handleMouseIn} style={{ display: (focused || mouseIn) ? 'block' : 'none' }}>
               <SearchInfoTitle>
                 热门搜索
-                <SearchInfoSwitch onClick={handleSwitchInfo}>
-                  换一批
+                <SearchInfoSwitch onClick={() => handleSwitchInfo(this.spin)}>
+                  <i ref={(spin) => { this.spin = spin; }} className='iconfont'>&#xe851;</i>换一批
                 </SearchInfoSwitch>
               </SearchInfoTitle>
               <div>
@@ -92,7 +92,10 @@ const mapDispatchToProps = (dispatch) => {
     handleMouseOut: () => {
       dispatch(actionCreator.mouseOutAction());
     },
-    handleSwitchInfo: () => {
+    handleSwitchInfo: (spin) => {
+      let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+      originAngle = originAngle ? parseInt(originAngle) : 0;
+      spin.style.transform = 'rotate(' + (originAngle + 360) + 'deg)';
       dispatch(actionCreator.switchInfoAction());
     }
   }

@@ -70,3 +70,11 @@ export default class Header extends Component {
 ### immutable.js 不可被改变的对象，保证state不被改变
 
 ### redux-immutable 让总的state也变成一个immutable对象
+
+### react的路由
+
+安装依赖 react-router-dom
+
+路由可以实现页面的跳转
+
+
