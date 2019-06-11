@@ -1,0 +1,3 @@
+export const READ_MORE = 'READ_MORE';
+export const CHANGE_ARTICLE_LIST = 'CHANGE_ARTICLE_LIST';
+export const CHAGE_SHOW_SCROLL = 'CHAGE_SHOW_SCROLL';

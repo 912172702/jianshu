@@ -28,7 +28,7 @@ const headerReducer = (state = defaultState, action) => {
       return state.set('mouseIn', false);
     case actionTypes.SWITCH_INFO:
       //console.log('totalPage : ', state.get('totalPage'));
-      return state.set('page', state.get('page') == state.get('totalPage') ? 1 : (state.get('page') + 1));
+      return state.set('page', state.get('page') === state.get('totalPage') ? 1 : (state.get('page') + 1));
     default:
       break;
   }

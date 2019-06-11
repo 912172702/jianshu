@@ -6,17 +6,17 @@ import { Provider } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 import store from './store/index'
 import Home from './pages/home/index'
-import Detail from './pages/detail/index';
+import Detail from './pages/detail/loadable';
 function App() {
   return (
     <Fragment>
       <Provider store={store}>
         <GlobalStyle />
         <GlobalIconFont />
-        <Header />
         <BrowserRouter>
-          <Route path='/' exact render={() => <Home />}></Route>
-          <Route path='/detail' exact render={() => <Detail />}></Route>
+          <Header />
+          <Route path='/' exact component={Home}></Route>
+          <Route path='/detail/:id' exact component={Detail}></Route>
         </BrowserRouter>
       </Provider>
     </Fragment>

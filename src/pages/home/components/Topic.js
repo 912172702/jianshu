@@ -9,7 +9,7 @@ class Topic extends Component {
           this.props.topicList.map((item) => {
             return (
               <TopicItem key={item.get('id')}>
-                <img src={item.get('imgUrl')} />
+                <img alt='' src={item.get('imgUrl')} />
                 {item.get('title')}
               </TopicItem>
             );

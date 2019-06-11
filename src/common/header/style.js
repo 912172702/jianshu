@@ -5,7 +5,7 @@ export const HeaderWrapper = styled.div`
     border-bottom: 1px solid #f0f0f0
 `;
 
-export const Logo = styled.a`
+export const Logo = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -129,6 +129,7 @@ export const SearchWrapper = styled.div`
       color: #fff;
     }
   }
+
 `;
 
 export const SearchInfo = styled.div`
@@ -140,6 +141,7 @@ export const SearchInfo = styled.div`
     padding: 0 20px 10px 20px;
     /*background: green;*/
     box-shadow: 0 0 8px rgba(0,0,0,.2);
+    background: #fff;
 
 `;
 

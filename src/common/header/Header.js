@@ -3,6 +3,7 @@ import { SearchInfoItem, SearchInfoSwitch, SearchInfoTitle, SearchInfo, SearchWr
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import * as actionCreator from './store/actionCreator';
+import { Link } from 'react-router-dom'
 class Header extends Component {
 
   getListItem = () => {
@@ -19,7 +20,9 @@ class Header extends Component {
     const { handleSwitchInfo, handleMouseOut, handleMouseIn, mouseIn, focused, handleInputFocus, handleInputBlur } = this.props;
     return (
       <HeaderWrapper>
-        <Logo href='/' />
+        <Link to='/'>
+          <Logo></Logo>
+        </Link>
         <Nav>
           <NavItem className='left active'>首页</NavItem>
           <NavItem className='left'>下载APP</NavItem>
